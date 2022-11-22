@@ -1,9 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
-import dotenv from "dotenv"
-import router from "./routes/rodoRoute.js";
+import todoRouter from "./routes/todoRoute.js";
+import dbUrl from "./configs/dbConfig.js"
 
-dotenv.config();
 const app = express();
 const port  = 3000;
 
@@ -13,10 +12,10 @@ const port  = 3000;
 app.set("view engine","ejs")
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
-app.use('/',router)
+app.use('/',todoRouter)
 
 
-mongoose.connect(process.env.MONGODB_URL)
+mongoose.connect(dbUrl)
 .then(()=>{console.log("connected to db")})
 .catch(err=>{console.log(err.message)})
 
